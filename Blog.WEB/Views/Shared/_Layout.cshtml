@@ -4,12 +4,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Blog.WEB</title>
+    <title>Meriç Özsarıgül - Kod - Gezi - Fotoğraf</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/lib/DataTables/media/css/jquery.dataTables.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+      
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -29,31 +31,68 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Blog.WEB</a>
+                 
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Hakkımda</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">İletişim</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
+       
+        <div class="row">
+            <div class="col-md-3" style="border-right:1px solid #4a4343;">
+                <br />
+                <div class="form-group">
+                    <img class="img-circle" src="~/images/me.jpg" style="width:50%;" />
+                    <h3 style="border-bottom:1px solid #4a4343;">Meriç ÖZSARIGÜL<br />&nbsp;</h3>
+                    <h5>
+                        <br /> Yazılım Uzmanı, Amatör Fotoğrafçı, Doğa Sevdalısı, Amatör Kampçı<br /><br />
+                        C#, ASP.NET ve MVC ile birlikte MSSQL biraz da Oracle yazarı.
+                        Şimdi de .NET Core ile ASP.NET Core MVC ve API geliştiricisi.<br /><br />
+                    </h5>
+                </div>
+                <div class="form-group">
+                    <a href="https://www.facebook.com/profile.php?id=536429024" target="_blank" class="btn btn-outline" style="border:1px solid #c7c5c5 !important;">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a href="https://twitter.com/mericozsarigul" target="_blank" class="btn btn-outline" style="border:1px solid #c7c5c5 !important;">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-outline" href="https://www.instagram.com/mericozsarigul/" target="_blank" style="border:1px solid #c7c5c5 !important;">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                    <a class="btn btn-outline" href="https://www.linkedin.com/in/meri%C3%A7-%C3%B6zsar%C4%B1g%C3%BCl-22938751/" target="_blank" style="border:1px solid #c7c5c5 !important;" >
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                    <a class="btn btn-outline" href="https://github.com/mericozsarigul" target="_blank" style="border:1px solid #c7c5c5 !important;">
+                        <i class="fa fa-git"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <br />
+                @RenderBody()
+            </div>
+          
+        </div>      
         <hr />
         <footer>
-            <p>&copy; 2017 - Blog.WEB</p>
+            <p>&copy; 2017 - Meriç Özsarıgül</p>
         </footer>
     </div>
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
- 
-         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="~/lib/DataTables/media/js/jquery.dataTables.js"></script>
+        <script src="~/lib/tinymce/tinymce.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

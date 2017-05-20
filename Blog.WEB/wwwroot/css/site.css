@@ -1,6 +1,10 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: black;
+    background-size: 100%;
+    color: white !important;
+    font-family:'Segoe UI';
 }
 
 /* Wrapping element */
@@ -8,6 +12,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background: rgba(195, 195, 195, 0.22) !important;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -34,4 +39,11 @@ textarea {
     .carousel-caption {
         display: none;
     }
+}
+
+.panel-body{
+    border-radius:0px !important;
+}
+.panel-body{
+    color:black !important;
 }

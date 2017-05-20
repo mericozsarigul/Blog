@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using Blog.Model.Data;
+using Blog.Model.Rest;
 
 namespace Blog.WEB.Controllers
 {
@@ -18,23 +22,28 @@ namespace Blog.WEB.Controllers
         [HttpPost]
         public IActionResult Index(string Username, string Password)
         {
-            if(Username=="admin" && Password == "admin")
+            
+            if (Username=="admin" && Password == "admin")
             {
-                TempData["admin"] = true;
-                return RedirectToAction("AddEntry");
+                HttpContext.Session.SetString("AdminStatu", "true");
+                return RedirectToAction("EntryAsync");
             }
             return View();
         }
 
-        [HttpGet]
-        public IActionResult AddEntry()
+
+        public async Task<IActionResult> EntryAsync()
         {
-            var adminStatu = TempData["admin"];
-            if(adminStatu!=null)
+            var adminTempStatu = HttpContext.Session.GetString("AdminStatu");
+
+            if (adminTempStatu != null)
             {
-                if (Convert.ToBoolean(adminStatu))
+                if (Convert.ToBoolean(adminTempStatu))
                 {
-                    return View();
+                    EntryRestfulService service = new EntryRestfulService();
+                    List<Entry> data = await service.ListEntryAsync();
+
+                    return View(data);
                 }
                 else
                 {
@@ -45,8 +54,9 @@ namespace Blog.WEB.Controllers
             {
                 return Redirect("Index");
             }
-            
-            
         }
+
+
+
     }
 }

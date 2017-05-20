@@ -1,0 +1,47 @@
+﻿@model List<Blog.Model.Data.Entry>
+
+<form asp-controller="Entry" asp-action="Add">
+    <button class="btn btn-success" type="submit">Ekle</button>
+</form>
+
+<table id="BlogEditorTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Başlık</th>
+            <th>Kategoriler</th>
+            <th>Kayıt Tarihi</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>adsa</td>
+                    <td>@item.CreateDate.ToString()</td>
+                    <td>
+                        <form class="col-md-3" asp-controller="Entry" asp-action="Edit" asp-route-id="@item.Id">
+                            <button type="submit" class="btn btn-primary">Düzenle</button>
+                        </form>
+                        <div class="col-md-1" data-id="@item.Id">
+                            <button onclick="" class="btn btn-danger">Sil</button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#BlogEditorTable").dataTable();
+
+        });
+    </script>}

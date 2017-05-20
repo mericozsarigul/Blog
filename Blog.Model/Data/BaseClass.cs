@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blog.API.Models.Data
+namespace Blog.Model.Data
 {
     public abstract class BaseClass
     {

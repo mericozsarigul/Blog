@@ -1,4 +1,4 @@
-﻿using Blog.API.Models.Data;
+﻿using Blog.Model.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

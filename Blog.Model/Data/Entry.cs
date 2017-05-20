@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Blog.API.Models.Data
+namespace Blog.Model.Data
 {
     public class Entry:BaseClass
     {

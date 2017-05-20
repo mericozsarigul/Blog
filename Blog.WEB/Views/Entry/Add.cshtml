@@ -1,0 +1,79 @@
+@model Blog.Model.Data.Entry
+<form asp-controller="Entry" asp-action="SaveAsync" method="post" >
+    <div class="btn-group">
+        <button class="btn btn-success" type="submit">Kaydet</button>
+        <button class="btn btn-primary" type="reset">Temizle</button>
+    </div>
+    
+        <input asp-for="Title" />
+    
+    <p>
+        <textarea asp-for="Content"></textarea>
+    </p>
+   
+     
+</form>
+
+@section scripts{
+    <script>
+        function ekle() {
+            $("#EkleModal").modal();
+        }
+        $(document).ready(function () {
+            $("#BlogEditorTable").dataTable();
+
+            tinymce.init({
+                selector: "textarea",
+                theme: "modern",
+                paste_data_images: true,
+                plugins: [
+                    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen",
+                    "insertdatetime media nonbreaking save table contextmenu directionality",
+                    "emoticons template paste textcolor colorpicker textpattern"
+                ],
+                toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                toolbar2: "print preview media | forecolor backcolor emoticons",
+                image_advtab: true,
+                file_browser_callback: function (fieldName, url, type, win) {
+                    var inputElement = document.createElement("input");
+                    inputElement.type = "file";
+                    inputElement.addEventListener("change", callback);
+                    inputElement.dispatchEvent(new MouseEvent("click"));
+                },
+                images_upload_handler: function (blobInfo, success, failure) {
+                    var xhr, formData;
+                    xhr = new XMLHttpRequest();
+                    xhr.withCredentials = false;
+                    xhr.open('POST', 'postAcceptor.php');
+                    xhr.onload = function () {
+                        var json;
+
+                        if (xhr.status != 200) {
+                            failure('HTTP Error: ' + xhr.status);
+                            return;
+                        }
+                        json = JSON.parse(xhr.responseText);
+
+                        if (!json || typeof json.location != 'string') {
+                            failure('Invalid JSON: ' + xhr.responseText);
+                            return;
+                        }
+                        success(json.location);
+                    };
+                    formData = new FormData();
+                    formData.append('file', blobInfo.blob(), fileName(blobInfo));
+                    xhr.send(formData);
+                },
+                templates: [{
+                    title: 'Test template 1',
+                    content: 'Test 1'
+                }, {
+                    title: 'Test template 2',
+                    content: 'Test 2'
+                }]
+            });
+
+        })
+    </script>
+}

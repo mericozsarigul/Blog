@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blog.API.Models.Repository;
-using Blog.API.Models.Data;
+using Blog.Model.Data;
 
 namespace Blog.API.Controllers
 {
@@ -38,14 +38,14 @@ namespace Blog.API.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post(Entry entry)
+        public void Post([FromBody]Entry entry)
         {
             repoEntry.Insert(entry);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(Entry entry)
+        public void Put([FromBody]Entry entry)
         {
             repoEntry.Update(entry);
         }
