@@ -55,6 +55,9 @@ namespace Blog.API.Models.Repository
             {
                 throw new ArgumentNullException("entity");
             }
+            entities.Attach(entity);
+            var update = context.Entry(entity);
+            update.State = EntityState.Modified;
             context.SaveChanges();
         }
 

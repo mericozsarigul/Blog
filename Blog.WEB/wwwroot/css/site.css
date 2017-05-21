@@ -20,6 +20,7 @@ input,
 select,
 textarea {
     max-width: 280px;
+    color:black !important;
 }
 
 /* Carousel */
@@ -41,13 +42,29 @@ textarea {
     }
 }
 
-.panel-body{
-    border-radius:0px !important;
+
+
+.panel {
+    border: none !important;
+    border-radius: 0px !important;
+    background-color: #676767 !important;
 }
-.panel-body{
-    color:black !important;
+.panel-default > .panel-heading {
+    color: white !important;
+    background-color: #3c3c3c !important;
+    border-color: #969696 !important;
+}
+.panel-heading {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius:0px !important;
+}
+.panel-body {
+    border-radius: 0px !important;
 }
 
-.panel{
-    border-radius:0px !important;
+.panel-body {
+    color: white !important;
+}
+.btn-link {
+    color: white !important;
 }

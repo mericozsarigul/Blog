@@ -1,28 +1,29 @@
 @model Blog.Model.Data.Entry
-<form asp-controller="Entry" asp-action="Save" method="post" >
+<form asp-controller="Entry" asp-action="Save" method="post">
     <div class="btn-group">
         <button class="btn btn-success" type="submit">Kaydet</button>
         <button class="btn btn-primary" type="reset">Temizle</button>
     </div>
-    
-        <input asp-for="Title" />
-    
+    <br /><br />
+    <input asp-for="Title" style="width:100%" />
     <p>
+        <br />
         <textarea asp-for="Content"></textarea>
     </p>
-   
-     
+
+
 </form>
 
 @section scripts{
     <script>
-       
+
         $(document).ready(function () {
             $("#BlogEditorTable").dataTable();
 
             tinymce.init({
                 selector: "textarea",
                 theme: "modern",
+                height: "350",
                 paste_data_images: true,
                 plugins: [
                     "advlist autolink lists link image charmap print preview hr anchor pagebreak",

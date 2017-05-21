@@ -1,17 +1,23 @@
-﻿@{
-    ViewData["Title"] = "Contact";
+﻿@model Blog.Model.Data.Mail
+
+<h2>İletişim</h2>
+<form asp-controller="Home" asp-action="SendEmail">
+    <input type="text" asp-for="Name" placeholder="Adınız" style="width:100%" /><br /><br />
+
+    <input type="email" asp-for="Email" placeholder="Mail Adresiniz" style="width:100%" /><br /><br />
+
+    <textarea asp-for="Message" placeholder="Mesajınız" style="width:100%;height:100px;resize:none;"></textarea><br /><br />
+
+    <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="@ViewBag.Captcha"></div>
+
+    <button style="display:none;" id="sendButton" type="submit" class="btn btn-success">Gönder</button>
+</form>
+@section scripts{
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script>
+        function recaptchaCallback()
+        {
+            $("#sendButton").css("display", "block");
+        }
+    </script>
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>

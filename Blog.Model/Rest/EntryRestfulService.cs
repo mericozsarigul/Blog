@@ -33,29 +33,33 @@ namespace Blog.Model.Rest
             }
         }
 
-        public void PostEntry(Entry data)
+        public async Task PostEntry(Entry data)
         {
             var jsonInString = JsonConvert.SerializeObject(data);
 
-            var client = new HttpClient();
-            client.PostAsync(uri, new StringContent(jsonInString, Encoding.UTF8, "application/json"));
+            using (HttpClient httpClient = new HttpClient())
+            {
+                await httpClient.PostAsync(uri, new StringContent(jsonInString, Encoding.UTF8, "application/json"));
+            }
         }
 
-        public void UpdateEntry(Entry data)
+        public async Task UpdateEntry(Entry data)
         {
             var jsonInString = JsonConvert.SerializeObject(data);
 
-            var client = new HttpClient();
-            client.PutAsync(uri, new StringContent(jsonInString, Encoding.UTF8, "application/json"));
+            using (HttpClient httpClient = new HttpClient())
+            {
+               await httpClient.PutAsync(uri, new StringContent(jsonInString, Encoding.UTF8, "application/json"));
+            }
         }
 
-        public async Task DeleteEntryAsync(long id)
+        public async Task DeleteEntry(long id)
         {
             string deleteUri = uri + "/" + id.ToString();
 
             using (HttpClient httpClient = new HttpClient())
             {
-                var data = await httpClient.DeleteAsync(deleteUri);
+                await httpClient.DeleteAsync(deleteUri);
             }
         }
     }

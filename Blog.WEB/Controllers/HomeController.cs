@@ -32,7 +32,13 @@ namespace Blog.WEB.Controllers
 
         public IActionResult Contact()
         {
+           ViewBag.Captcha = "6LcQUiIUAAAAAIYypyJefzVUM9MVmzq1buc7pV0G";
            return View();
+        }
+
+        public IActionResult SendEmail(Mail data)
+        {
+            return RedirectToAction("Contact");
         }
 
         
