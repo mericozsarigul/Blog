@@ -18,6 +18,13 @@ namespace Blog.WEB.Controllers
             return View(data);
         }
 
+        public async Task<IActionResult> Detail(long id)
+        {
+            EntryRestfulService service = new EntryRestfulService();
+            Entry data = await service.GetEntryAsync(id);
+            return View(data);
+        }
+
         public IActionResult About()
         {
             return View();

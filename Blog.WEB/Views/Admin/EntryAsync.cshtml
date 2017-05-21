@@ -28,9 +28,10 @@
                         <form class="col-md-3" asp-controller="Entry" asp-action="Edit" asp-route-id="@item.Id">
                             <button type="submit" class="btn btn-primary">Düzenle</button>
                         </form>
-                        <div class="col-md-1" data-id="@item.Id">
-                            <button onclick="" class="btn btn-danger">Sil</button>
-                        </div>
+                        <form class="col-md-1" asp-controller="Entry" asp-action="Delete" asp-route-id="@item.Id">
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        </form>
+
                     </td>
                 </tr>
             }

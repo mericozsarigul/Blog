@@ -44,7 +44,7 @@ namespace Blog.API.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put([FromBody]Entry entry)
         {
             repoEntry.Update(entry);

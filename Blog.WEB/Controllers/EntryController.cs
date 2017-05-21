@@ -17,7 +17,14 @@ namespace Blog.WEB.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SaveAsync(Entry data)
+        public async Task<IActionResult> Edit(long id)
+        {
+            EntryRestfulService service = new EntryRestfulService();
+            Entry data = await service.GetEntryAsync(id);
+            return View(data);
+        }
+
+        public IActionResult Save(Entry data)
         {
             data.CreateDate = DateTime.Now;
             data.Summary = data.Content.Length > 50 ? data.Content.Substring(0, 50) : data.Content;
@@ -28,10 +35,22 @@ namespace Blog.WEB.Controllers
             return Redirect("/Admin/EntryAsync");
         }
 
-        public IActionResult Update(Entry postData)
+        public IActionResult Update(Entry data)
         {
+            data.CreateDate = DateTime.Now;
+            data.Summary = data.Content.Length > 50 ? data.Content.Substring(0, 50) : data.Content;
 
-            return View();
+            EntryRestfulService service = new EntryRestfulService();
+            service.UpdateEntry(data);
+
+            return Redirect("/Admin/EntryAsync");
+        }
+
+        public async Task<IActionResult> Delete(long id)
+        {
+            EntryRestfulService service = new EntryRestfulService();
+            await service.DeleteEntryAsync(id);
+            return Redirect("/Admin/EntryAsync");
         }
     }
 }

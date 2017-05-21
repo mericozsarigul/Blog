@@ -1,22 +1,22 @@
-@model Blog.Model.Data.Entry
-<form asp-controller="Entry" asp-action="Save" method="post" >
+﻿@model Blog.Model.Data.Entry
+<form asp-controller="Entry" asp-action="Update" method="post">
     <div class="btn-group">
         <button class="btn btn-success" type="submit">Kaydet</button>
         <button class="btn btn-primary" type="reset">Temizle</button>
     </div>
-    
-        <input asp-for="Title" />
-    
+    <input asp-for="Id" type="hidden" value="@Model.Id"/>
+    <input asp-for="Title" value="@Model.Title" />
+
     <p>
-        <textarea asp-for="Content"></textarea>
+        <textarea asp-for="Content">@Model.Content</textarea>
     </p>
-   
-     
+
+
 </form>
 
 @section scripts{
     <script>
-       
+
         $(document).ready(function () {
             $("#BlogEditorTable").dataTable();
 

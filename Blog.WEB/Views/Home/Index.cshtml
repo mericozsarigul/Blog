@@ -7,7 +7,11 @@
             <div class="panel-heading">@items.Title</div>
             <div class="panel-body">
                @Html.Raw(items.Content)
+                <form style="float:right;" asp-controller="Home" asp-action="Detail" asp-route-id="@items.Id">
+                    <button class="btn-link">Devamı için</button>
+                </form>
             </div>
+            
         </div>
     }
 }
