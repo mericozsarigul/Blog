@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Model.Rest;
 using Blog.Model.Data;
+using MimeKit;
+using MailKit.Net.Smtp;
+using System.Net;
 
 namespace Blog.WEB.Controllers
 {
@@ -36,12 +39,28 @@ namespace Blog.WEB.Controllers
            return View();
         }
 
-        public IActionResult SendEmail(Mail data)
+        public async Task<IActionResult> SendEmail(Mail data)
         {
+            var emailMessage = new MimeMessage();
+
+            emailMessage.From.Add(new MailboxAddress(data.Email));
+            emailMessage.To.Add(new MailboxAddress("mericozsarigul@gmail.com"));
+            emailMessage.Subject = "Blog İletişim";
+            var builder = new BodyBuilder { TextBody = data.Message };
+
+            emailMessage.Body = builder.ToMessageBody();
+            using (var client = new SmtpClient())
+            {
+     
+                await client.ConnectAsync("smtp.gmail.com", 587).ConfigureAwait(false);
+                await client.SendAsync(emailMessage).ConfigureAwait(false);
+                await client.DisconnectAsync(true).ConfigureAwait(false);
+            }
+
             return RedirectToAction("Contact");
         }
 
-        
+
 
         public IActionResult Error()
         {

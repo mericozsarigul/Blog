@@ -4,16 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Model.Data;
+ using Blog.Model.Rest;
  
-using System.Net.Http;
-using Blog.Model.Rest;
 
 namespace Blog.WEB.Controllers
 {
     public class EntryController : Controller
     {
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            CategoryRestfulService service = new CategoryRestfulService();
+            List<Category> CategoryList = await service.ListCategoryAsync();
+             
+            ViewBag.Categories = CategoryList;
             return View();
         }
 

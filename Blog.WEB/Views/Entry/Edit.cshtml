@@ -5,7 +5,7 @@
         <button class="btn btn-primary" type="reset">Temizle</button>
     </div>
     <input asp-for="Id" type="hidden" value="@Model.Id"/>
-    <input asp-for="Title" value="@Model.Title" />
+    <input asp-for="Title" placeholder="Başlık" value="@Model.Title" />
 
     <p>
         <textarea asp-for="Content">@Model.Content</textarea>

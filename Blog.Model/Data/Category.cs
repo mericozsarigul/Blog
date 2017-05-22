@@ -8,6 +8,7 @@ namespace Blog.Model.Data
     public class Category:BaseClass
     {
         public string Title { get; set; }
+        public virtual List<Entry> Entries { get; set; }
 
     }
 }

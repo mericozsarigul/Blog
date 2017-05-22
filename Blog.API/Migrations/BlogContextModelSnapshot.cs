@@ -16,7 +16,7 @@ namespace Blog.API.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Blog.API.Models.Data.Category", b =>
+            modelBuilder.Entity("Blog.Model.Data.Category", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -30,10 +30,12 @@ namespace Blog.API.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Blog.API.Models.Data.Entry", b =>
+            modelBuilder.Entity("Blog.Model.Data.Entry", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<long?>("CategoryId");
 
                     b.Property<string>("Content");
 
@@ -45,7 +47,16 @@ namespace Blog.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Entries");
+                });
+
+            modelBuilder.Entity("Blog.Model.Data.Entry", b =>
+                {
+                    b.HasOne("Blog.Model.Data.Category", "Category")
+                        .WithMany("Entries")
+                        .HasForeignKey("CategoryId");
                 });
         }
     }
