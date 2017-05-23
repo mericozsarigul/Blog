@@ -7,7 +7,6 @@ using Blog.Model.Rest;
 using Blog.Model.Data;
 using MimeKit;
 using MailKit.Net.Smtp;
-using System.Net;
 
 namespace Blog.WEB.Controllers
 {
@@ -39,28 +38,29 @@ namespace Blog.WEB.Controllers
            return View();
         }
 
-        public async Task<IActionResult> SendEmail(Mail data)
+        public IActionResult SendEmail(Mail data)
         {
-            var emailMessage = new MimeMessage();
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Anuraj", "mericozsarigul@gmail.com"));
+            message.To.Add(new MailboxAddress("Anuraj", "mericozsarigul@gmail.com"));
+            message.Subject = "Hello World - A mail from ASPNET Core";
+            message.Body = new TextPart("plain")
+            {
+                Text = "Hello World - A mail from ASPNET Core"
+            };
 
-            emailMessage.From.Add(new MailboxAddress(data.Email));
-            emailMessage.To.Add(new MailboxAddress("mericozsarigul@gmail.com"));
-            emailMessage.Subject = "Blog İletişim";
-            var builder = new BodyBuilder { TextBody = data.Message };
-
-            emailMessage.Body = builder.ToMessageBody();
             using (var client = new SmtpClient())
             {
-     
-                await client.ConnectAsync("smtp.gmail.com", 587).ConfigureAwait(false);
-                await client.SendAsync(emailMessage).ConfigureAwait(false);
-                await client.DisconnectAsync(true).ConfigureAwait(false);
+                client.Connect("smtp.gmail.com", 587, false);
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                client.Authenticate("mericozsarigul@gmail.com", "Ozlem@3541");
+                client.Send(message);
+                client.Disconnect(true);
             }
-
             return RedirectToAction("Contact");
         }
 
-
+        
 
         public IActionResult Error()
         {

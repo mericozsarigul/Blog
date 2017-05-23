@@ -5,18 +5,7 @@
         <button class="btn btn-primary" type="reset">Temizle</button>
     </div>
     <br /><br />
-    <input type="text" asp-for="Title" placeholder="Baslik" style="width:100%" /><br /><br />
-    <p>
-        <select asp-for="Category">
-            @{ 
-                var data = (List<Blog.Model.Data.Category>)ViewBag.Categories;
-                foreach(var items in data)
-                {
-                    <option value="@items.Id">@items.Title</option>
-                }
-            }
-        </select>
-    </p>
+    <input asp-for="Title" style="width:100%" />
     <p>
         <br />
         <textarea asp-for="Content"></textarea>
@@ -33,7 +22,7 @@
 
             tinymce.init({
                 selector: 'textarea',
-                height: 350,
+                height: 500,
                 theme: 'modern',
                 plugins: [
                     'advlist autolink lists link image charmap print preview hr anchor pagebreak',
@@ -44,10 +33,11 @@
                 toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
                 image_advtab: true,
-
+                images_upload_base_path: '/FileUpload',
+                images_upload_credentials: false,
                 image_title: true,
                 automatic_uploads: true,
-                images_upload_url: "/Duyurular",
+                
                 file_picker_types: 'image',
                 file_picker_callback: function (cb, value, meta) {
                     var input = document.createElement('input');
@@ -56,17 +46,20 @@
 
                     input.onchange = function () {
                         var file = this.files[0];
-                        var id = 'blobid' + (new Date()).getTime();
-                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                        var blobInfo = blobCache.create(id, file);
-                        blobCache.add(blobInfo);
-                        cb(blobInfo.blobUri(), { title: file.name });
+                        var reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = function () {
+                            var id = 'blobid' + (new Date()).getTime();
+                            var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                            var blobInfo = blobCache.create(id, file, reader.result);
+                            blobCache.add(blobInfo, reader.result);
+                            cb(blobInfo.blobUri(), { title: file.name });
+                        };
                     };
 
                     input.click();
                 }
             });
-            
 
         })
     </script>
