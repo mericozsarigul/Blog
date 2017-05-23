@@ -18,45 +18,90 @@ namespace Blog.API.Controllers
             this.repoEntry = repoEntry;
         }
 
-        // GET: api/values
+
         [HttpGet]
         public List<Entry> Get()
         {
-            List<Entry> list = new List<Entry>();
-            list = repoEntry.GetAll().ToList();
-            return list;
+            try
+            {
+                List<Entry> list = new List<Entry>();
+                list = repoEntry.GetAll().ToList();
+                return list;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+           
         }
 
-        // GET api/values/5
+
         [HttpGet("{id}")]
         public Entry Get(long id)
         {
-            Entry data = new Entry();
-            data = repoEntry.Get(id);
-            return data;
+            try
+            {
+                Entry data = new Entry();
+                data = repoEntry.Get(id);
+                return data;
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+            
         }
 
-        // POST api/values
+
         [HttpPost]
         public void Post([FromBody]Entry entry)
         {
-            repoEntry.Insert(entry);
+            try
+            {
+                repoEntry.Insert(entry);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
-        // PUT api/values/5
+
         [HttpPut]
         public void Put([FromBody]Entry entry)
         {
-            repoEntry.Update(entry);
+            try
+            {
+                repoEntry.Update(entry);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
-        // DELETE api/values/5
+
         [HttpDelete("{id}")]
         public void Delete(long id)
         {
-            Entry data = new Entry();
-            data = repoEntry.Get(id);
-            repoEntry.Delete(data);
+            try
+            {
+                Entry data = new Entry();
+                data = repoEntry.Get(id);
+                repoEntry.Delete(data);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

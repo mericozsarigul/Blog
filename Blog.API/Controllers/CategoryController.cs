@@ -20,45 +20,84 @@ namespace Blog.API.Controllers
             this.repoCategory = repoCategory;
         }
 
-        // GET: api/values
+
         [HttpGet]
         public List<Category> Get()
         {
-            List<Category> list = new List<Category>();
-            list = repoCategory.GetAll().ToList();
-            return list;
+            try
+            {
+                List<Category> list = new List<Category>();
+                list = repoCategory.GetAll().ToList();
+                return list;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+           
         }
 
-        // GET api/values/5
+ 
         [HttpGet("{id}")]
         public Category Get(long id)
         {
-            Category data = new Category();
-            data = repoCategory.Get(id);
-            return data;
+            try
+            {
+                Category data = new Category();
+                data = repoCategory.Get(id);
+                return data;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        // POST api/values
+
         [HttpPost]
         public void Post(Category entry)
         {
-            repoCategory.Insert(entry);
+            try
+            {
+                repoCategory.Insert(entry);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        // PUT api/values/5
+
         [HttpPut("{id}")]
         public void Put(Category entry)
         {
-            repoCategory.Update(entry);
+            try
+            {
+                repoCategory.Update(entry);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        // DELETE api/values/5
+
         [HttpDelete("{id}")]
         public void Delete(long id)
         {
-            Category data = new Category();
-            data = repoCategory.Get(id);
-            repoCategory.Delete(data);
+            try
+            {
+                Category data = new Category();
+                data = repoCategory.Get(id);
+                repoCategory.Delete(data);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
