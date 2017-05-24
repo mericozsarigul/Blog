@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Blog.WEB
 {
@@ -11,14 +7,13 @@ namespace Blog.WEB
     {
         public static void Main(string[] args)
         {
-
             var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseStartup<Startup>()
-                .UseIISIntegration()
-                .UseApplicationInsights()
-                .Build();
+                            .UseKestrel()
+                            .UseContentRoot(Directory.GetCurrentDirectory())
+                            .UseStartup<Startup>()
+                            .UseIISIntegration()
+                            .UseApplicationInsights()
+                            .Build();
 
             host.Run();
         }
