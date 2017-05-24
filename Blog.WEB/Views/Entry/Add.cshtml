@@ -14,6 +14,7 @@
 
 </form>
 
+
 @section scripts{
     <script>
 
@@ -33,12 +34,38 @@
                 toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
                 image_advtab: true,
-                images_upload_base_path: '/FileUpload',
-                images_upload_credentials: false,
                 image_title: true,
-                automatic_uploads: true,
-                
                 file_picker_types: 'image',
+                images_upload_handler: function (blobInfo, success, failure) {
+                    var xhr, formData;
+
+                    xhr = new XMLHttpRequest();
+                    xhr.withCredentials = false;
+                    xhr.open('POST', '/Home/TinyMceUpload');
+
+                    xhr.onload = function () {
+                        var json;
+
+                        if (xhr.status < 200 || xhr.status >= 300) {
+                            failure('HTTP Error: ' + xhr.status);
+                            return;
+                        }
+
+                        json = JSON.parse(xhr.responseText);
+
+                        if (!json || typeof json.location != 'string') {
+                            failure('Invalid JSON: ' + xhr.responseText);
+                            return;
+                        }
+
+                        success(json.location);
+                    };
+
+                    formData = new FormData();
+                    formData.append('files', blobInfo.blob(), blobInfo.filename());
+
+                    xhr.send(formData);
+                },
                 file_picker_callback: function (cb, value, meta) {
                     var input = document.createElement('input');
                     input.setAttribute('type', 'file');
@@ -46,6 +73,7 @@
 
                     input.onchange = function () {
                         var file = this.files[0];
+                       
                         var reader = new FileReader();
                         reader.readAsDataURL(file);
                         reader.onload = function () {
@@ -54,6 +82,7 @@
                             var blobInfo = blobCache.create(id, file, reader.result);
                             blobCache.add(blobInfo, reader.result);
                             cb(blobInfo.blobUri(), { title: file.name });
+
                         };
                     };
 

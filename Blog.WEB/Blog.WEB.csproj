@@ -7,6 +7,14 @@
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot/uploads\blobid1495625253615.jpg" />
+    <Content Remove="wwwroot/uploads\blobid1495625388528.jpg" />
+    <Content Remove="wwwroot/uploads\blobid1495625532448.jpg" />
+    <Content Remove="wwwroot/uploads\blobid1495625588336.jpg" />
+    <Content Remove="wwwroot/uploads\blobid1495625626957.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MailKit" Version="1.16.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
@@ -36,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Blog.Model\Blog.Model.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

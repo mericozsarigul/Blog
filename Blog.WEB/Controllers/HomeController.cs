@@ -7,11 +7,20 @@ using Blog.Model.Rest;
 using Blog.Model.Data;
 using MimeKit;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Blog.WEB.Controllers
 {
     public class HomeController : Controller
     {
+        private IHostingEnvironment _environment;
+        public HomeController(IHostingEnvironment environment)
+        {
+            _environment = environment;
+        }
+
         public async Task<IActionResult> Index()
         {
             EntryRestfulService service = new EntryRestfulService();
@@ -65,6 +74,21 @@ namespace Blog.WEB.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        public ActionResult TinyMceUpload(IFormFile files)
+        {
+            var location = Path.Combine(_environment.WebRootPath, "uploads");
+            
+                if (files.Length > 0)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(location, files.FileName), FileMode.Create))
+                    {
+                    files.CopyTo(fileStream);
+                    }
+                }
+            location = @"..\..\uploads\" + files.FileName;
+            return Json(new { location });
         }
     }
 }
