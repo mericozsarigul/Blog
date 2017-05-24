@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Blog.API.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class t1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -8,8 +8,8 @@ using Blog.API.Models.Context;
 namespace Blog.API.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20170522202754_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20170524143922_t1")]
+    partial class t1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
