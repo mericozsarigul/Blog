@@ -49,22 +49,27 @@ namespace Blog.WEB.Controllers
 
         public IActionResult SendEmail(Mail data)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Anuraj", "mericozsarigul@gmail.com"));
-            message.To.Add(new MailboxAddress("Anuraj", "mericozsarigul@gmail.com"));
-            message.Subject = "Hello World - A mail from ASPNET Core";
-            message.Body = new TextPart("plain")
+            try
             {
-                Text = "Hello World - A mail from ASPNET Core"
-            };
+                MimeMessage message = new MimeMessage();
+                message.Subject = "Blog - "+data.Name;
+                message.Body = new TextPart("Plain") { Text = data.Message };
+                message.From.Add(new MailboxAddress(data.Email));
+                message.To.Add(new MailboxAddress("mericozsarigul@gmail.com"));
 
-            using (var client = new SmtpClient())
+                SmtpClient smtp = new SmtpClient();
+                smtp.Connect(
+                      "smtp.gmail.com"
+                    , 587
+                    , MailKit.Security.SecureSocketOptions.StartTls
+                );
+                smtp.Authenticate("mericozsarigul@gmail.com", "");
+                smtp.Send(message);
+                smtp.Disconnect(true);
+            }
+            catch (Exception)
             {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.AuthenticationMechanisms.Remove("XOAUTH2");
-                client.Authenticate("mericozsarigul@gmail.com", "Ozlem@3541");
-                client.Send(message);
-                client.Disconnect(true);
+                return RedirectToAction("Contact");
             }
             return RedirectToAction("Contact");
         }
