@@ -64,7 +64,7 @@ namespace Blog.WEB.Controllers
                     , 587
                     , MailKit.Security.SecureSocketOptions.StartTls
                 );
-                smtp.Authenticate("mericozsarigul@gmail.com", "Ozlem@3541");
+                smtp.Authenticate("mericozsarigul@gmail.com", "");
                 smtp.Send(message);
                 smtp.Disconnect(true);
             }
