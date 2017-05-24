@@ -25,15 +25,21 @@ namespace Blog.WEB.Controllers
             return View(data);
         }
 
-        public async Task<IActionResult> Save(Entry data)
+        public async Task<IActionResult> Save(Entry data, long Category)
         {
+            EntryRestfulService serviceEntry = new EntryRestfulService();
+            CategoryRestfulService serviceCategory = new CategoryRestfulService();
+            var kategori = serviceCategory.GetCategoryAsync(Category);
+
             data.CreateDate = DateTime.Now;
             data.Summary = data.Content.Length > 50 ? data.Content.Substring(0, 50) : data.Content;
+            data.Category = kategori.Result;
 
-            EntryRestfulService service = new EntryRestfulService();
-            await service.PostEntry(data);
 
-            return Redirect("/Admin/EntryAsync");
+            
+            await serviceEntry.PostEntry(data);
+
+            return Redirect("/Admin/Entry");
         }
 
         public async Task<IActionResult> Update(Entry data)
@@ -44,14 +50,14 @@ namespace Blog.WEB.Controllers
             EntryRestfulService service = new EntryRestfulService();
             await service.UpdateEntry(data);
 
-            return Redirect("/Admin/EntryAsync");
+            return Redirect("/Admin/Entry");
         }
 
         public async Task<IActionResult> Delete(long id)
         {
             EntryRestfulService service = new EntryRestfulService();
             await service.DeleteEntry(id);
-            return Redirect("/Admin/EntryAsync");
+            return Redirect("/Admin/Entry");
         }
     }
 }

@@ -26,13 +26,13 @@ namespace Blog.WEB.Controllers
             if (Username=="admin" && Password == "admin")
             {
                 HttpContext.Session.SetString("AdminStatu", "true");
-                return RedirectToAction("EntryAsync");
+                return RedirectToAction("Entry");
             }
             return View();
         }
 
 
-        public async Task<IActionResult> EntryAsync()
+        public async Task<IActionResult> Entry()
         {
             var adminTempStatu = HttpContext.Session.GetString("AdminStatu");
 

@@ -66,3 +66,9 @@ textarea {
 .btn-link {
     color: white !important;
 }
+.fl{
+    float:left;
+}
+.fr{
+    float:right;
+}

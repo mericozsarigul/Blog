@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/lib/DataTables/media/css/jquery.dataTables.css" />
         <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
-      
+
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -25,13 +25,14 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle fl" data-toggle="collapse" data-target="#myInfo" style="margin-left:15px;"><i class="fa fa-user"></i></button>
+                <button type="button" class="navbar-toggle fr" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                 
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -43,9 +44,9 @@
         </div>
     </nav>
     <div class="container body-content">
-       
+
         <div class="row">
-            <div class="col-md-3" style="border-right:1px solid #4a4343;">
+            <div id="myInfo" class="col-md-3 collapse" style="border-right:1px solid #4a4343;">
                 <br />
                 <div class="form-group">
                     <img class="img-circle" src="~/images/me.jpg" style="width:50%;" />
@@ -66,7 +67,7 @@
                     <a class="btn btn-outline" href="https://www.instagram.com/mericozsarigul/" target="_blank" style="border:1px solid #c7c5c5 !important;">
                         <i class="fa fa-instagram"></i>
                     </a>
-                    <a class="btn btn-outline" href="https://www.linkedin.com/in/meri%C3%A7-%C3%B6zsar%C4%B1g%C3%BCl-22938751/" target="_blank" style="border:1px solid #c7c5c5 !important;" >
+                    <a class="btn btn-outline" href="https://www.linkedin.com/in/meri%C3%A7-%C3%B6zsar%C4%B1g%C3%BCl-22938751/" target="_blank" style="border:1px solid #c7c5c5 !important;">
                         <i class="fa fa-linkedin"></i>
                     </a>
                     <a class="btn btn-outline" href="https://github.com/mericozsarigul" target="_blank" style="border:1px solid #c7c5c5 !important;">
@@ -78,8 +79,8 @@
                 <br />
                 @RenderBody()
             </div>
-          
-        </div>      
+
+        </div>
         <hr />
         <footer>
             <p>&copy; 2017 - Meriç Özsarıgül</p>
