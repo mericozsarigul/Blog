@@ -16,6 +16,7 @@ namespace Blog.WEB
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
+                .UseIISIntegration()
                 .UseApplicationInsights()
                 .Build();
 

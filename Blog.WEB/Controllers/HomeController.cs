@@ -51,9 +51,10 @@ namespace Blog.WEB.Controllers
         {
             try
             {
+
                 MimeMessage message = new MimeMessage();
                 message.Subject = "Blog - "+data.Name;
-                message.Body = new TextPart("Plain") { Text = data.Message };
+                message.Body = new TextPart("Plain") { Text = data.Name+" - "+ data.Email + " - "+ data.Message };
                 message.From.Add(new MailboxAddress(data.Email));
                 message.To.Add(new MailboxAddress("mericozsarigul@gmail.com"));
 
