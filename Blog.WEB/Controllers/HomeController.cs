@@ -67,9 +67,11 @@ namespace Blog.WEB.Controllers
                 smtp.Authenticate("mericozsarigul@gmail.com", "");
                 smtp.Send(message);
                 smtp.Disconnect(true);
+                TempData["SendEmail"] = "Mesajınız başarıyla gönderildi";
             }
             catch (Exception)
             {
+                TempData["SendEmail"] = "Mesaj gönderilirken hata ile karşılaşıldı.";
                 return RedirectToAction("Contact");
             }
             return RedirectToAction("Contact");

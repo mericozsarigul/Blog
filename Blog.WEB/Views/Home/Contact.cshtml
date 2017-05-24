@@ -1,5 +1,23 @@
 ﻿@model Blog.Model.Data.Mail
+@{
+    if (TempData["SendEmail"] != null)
+    {
+        if (((string)TempData["SendEmail"]).Contains("başarı"))
+        {
+            <div class="alert alert-success">
+                <strong>Tamam! </strong>@((string)TempData["SendEmail"])
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <strong>Hata! </strong>@((string)TempData["SendEmail"])
+            </div>
 
+        }
+
+    }
+}
 <h2>İletişim</h2>
 <form asp-controller="Home" asp-action="SendEmail">
     <input type="text" asp-for="Name" placeholder="Adınız" style="width:100%" /><br /><br />
