@@ -17,6 +17,7 @@ namespace Blog.API
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .UseUrls("http://blog.api/")
                 .UseApplicationInsights()
                 .Build();
 
