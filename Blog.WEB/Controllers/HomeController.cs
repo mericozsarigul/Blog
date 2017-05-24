@@ -53,8 +53,8 @@ namespace Blog.WEB.Controllers
             {
 
                 MimeMessage message = new MimeMessage();
-                message.Subject = "Blog - "+data.Name;
-                message.Body = new TextPart("Plain") { Text = data.Name+" - "+ data.Email + " - "+ data.Message };
+                message.Subject = "Blog - "+ data.Name;
+                message.Body = new TextPart("Html") { Text = data.Name+" <br/> "+ data.Email + "  <br/> " + data.Message };
                 message.From.Add(new MailboxAddress(data.Email));
                 message.To.Add(new MailboxAddress("mericozsarigul@gmail.com"));
 
@@ -64,7 +64,7 @@ namespace Blog.WEB.Controllers
                     , 587
                     , MailKit.Security.SecureSocketOptions.StartTls
                 );
-                smtp.Authenticate("mericozsarigul@gmail.com", "");
+                smtp.Authenticate("mericozsarigul@gmail.com", "Ozlem@3541");
                 smtp.Send(message);
                 smtp.Disconnect(true);
             }
