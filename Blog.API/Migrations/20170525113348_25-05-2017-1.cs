@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Blog.API.Migrations
 {
-    public partial class t1 : Migration
+    public partial class _250520171 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,7 +29,6 @@ namespace Blog.API.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CategoryId = table.Column<long>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: false),
                     Summary = table.Column<string>(nullable: true),
@@ -38,27 +37,50 @@ namespace Blog.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Entries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EntryCategory",
+                columns: table => new
+                {
+                    EntryId = table.Column<long>(nullable: false),
+                    CategoryId = table.Column<long>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EntryCategory", x => new { x.EntryId, x.CategoryId });
                     table.ForeignKey(
-                        name: "FK_Entries_Categories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_EntryCategory_Categories_Id",
+                        column: x => x.Id,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EntryCategory_Entries_Id",
+                        column: x => x.Id,
+                        principalTable: "Entries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entries_CategoryId",
-                table: "Entries",
-                column: "CategoryId");
+                name: "IX_EntryCategory_Id",
+                table: "EntryCategory",
+                column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Entries");
+                name: "EntryCategory");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Entries");
         }
     }
 }

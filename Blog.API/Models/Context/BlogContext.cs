@@ -10,6 +10,8 @@ namespace Blog.API.Models.Context
             : base(options)
         {
         }
+
+        
         public DbSet<Entry> Entries { get; set; }
         public DbSet<Category> Categories { get; set; }
     }

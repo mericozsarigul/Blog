@@ -7,13 +7,8 @@ namespace Blog.Model.Data
 {
     public class Category:BaseClass
     {
-        public Category()
-        {
-            Entries = new List<Entry>();
-        }
-
         public string Title { get; set; }
-        public virtual ICollection<Entry> Entries { get; set; }
+        public  ICollection<Entry> Entries { get; set; }
 
     }
 }

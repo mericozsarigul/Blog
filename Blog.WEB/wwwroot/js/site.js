@@ -2,6 +2,10 @@
     if ($(window).width() <= 600) {
         $('#myInfo').removeClass('in');
     }
+else
+{
+        $('#myInfo').addClass('in');
+}
 });
 
 $(window).resize(function () {

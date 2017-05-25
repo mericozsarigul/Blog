@@ -8,8 +8,8 @@ using Blog.API.Models.Context;
 namespace Blog.API.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    [Migration("20170524143922_t1")]
-    partial class t1
+    [Migration("20170525113348_25-05-2017-1")]
+    partial class _250520171
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,8 +36,6 @@ namespace Blog.API.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long?>("CategoryId");
-
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("CreateDate");
@@ -48,16 +46,37 @@ namespace Blog.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Entries");
                 });
 
-            modelBuilder.Entity("Blog.Model.Data.Entry", b =>
+            modelBuilder.Entity("Blog.Model.Data.EntryCategory", b =>
+                {
+                    b.Property<long>("EntryId");
+
+                    b.Property<long>("CategoryId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<long>("Id");
+
+                    b.HasKey("EntryId", "CategoryId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("EntryCategory");
+                });
+
+            modelBuilder.Entity("Blog.Model.Data.EntryCategory", b =>
                 {
                     b.HasOne("Blog.Model.Data.Category", "Category")
-                        .WithMany("Entries")
-                        .HasForeignKey("CategoryId");
+                        .WithMany("CategoryEntries")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Blog.Model.Data.Entry", "Entry")
+                        .WithMany("EntryCategories")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }
