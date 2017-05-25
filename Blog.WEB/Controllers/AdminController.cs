@@ -55,7 +55,29 @@ namespace Blog.WEB.Controllers
                 return Redirect("Index");
             }
         }
+        public async Task<IActionResult> Category()
+        {
+            var adminTempStatu = HttpContext.Session.GetString("AdminStatu");
 
+            if (adminTempStatu != null)
+            {
+                if (Convert.ToBoolean(adminTempStatu))
+                {
+                    CategoryRestfulService service = new CategoryRestfulService();
+                    List<Category> data = await service.ListCategoryAsync();
+
+                    return View(data);
+                }
+                else
+                {
+                    return Redirect("Index");
+                }
+            }
+            else
+            {
+                return Redirect("Index");
+            }
+        }
 
 
     }

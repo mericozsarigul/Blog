@@ -3,6 +3,9 @@
 <form asp-controller="Entry" asp-action="Add">
     <button class="btn btn-success" type="submit">Ekle</button>
 </form>
+<form asp-controller="Admin" asp-action="Category">
+    <button class="btn btn-success" type="submit">Kategorileri Düzenle</button>
+</form>
 
 <table id="BlogEditorTable">
     <thead>
@@ -22,7 +25,7 @@
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Title</td>
-                    <td>adsa</td>
+                    <td>@item.CategoryName</td>
                     <td>@item.CreateDate.ToString()</td>
                     <td>
                         <form class="col-md-3" asp-controller="Entry" asp-action="Edit" asp-route-id="@item.Id">

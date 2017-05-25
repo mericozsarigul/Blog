@@ -8,9 +8,10 @@ using Blog.API.Models.Context;
 namespace Blog.API.Migrations
 {
     [DbContext(typeof(BlogContext))]
-    partial class BlogContextModelSnapshot : ModelSnapshot
+    [Migration("20170525125943_25-05-2017-3")]
+    partial class _250520173
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -35,9 +36,7 @@ namespace Blog.API.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long>("CategoryId");
-
-                    b.Property<string>("CategoryName");
+                    b.Property<long?>("CategoryId");
 
                     b.Property<string>("Content");
 
@@ -58,8 +57,7 @@ namespace Blog.API.Migrations
                 {
                     b.HasOne("Blog.Model.Data.Category")
                         .WithMany("Entries")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CategoryId");
                 });
         }
     }

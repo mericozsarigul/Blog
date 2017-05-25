@@ -1,11 +1,30 @@
 ﻿@model Blog.Model.Data.Entry
+
 <form asp-controller="Entry" asp-action="Update" method="post">
     <div class="btn-group">
         <button class="btn btn-success" type="submit">Kaydet</button>
         <button class="btn btn-primary" type="reset">Temizle</button>
     </div>
-    <input asp-for="Id" type="hidden" value="@Model.Id"/>
-    <input asp-for="Title" placeholder="Başlık" value="@Model.Title" />
+    <input asp-for="Id" type="hidden" value="@Model.Id"/><br /><br />
+    <label>Başlık : &nbsp;</label><input asp-for="Title" placeholder="Başlık" value="@Model.Title" /><br /><br />
+    <label>Kategori : &nbsp;</label>
+    <select asp-for="CategoryId">
+        @{
+            foreach (var items in (List<Blog.Model.Data.Category>)ViewBag.Categories)
+            {
+                if (Model.CategoryId != items.Id)
+                {
+                    <option value="@items.Id">@items.Title</option>
+                }
+                else
+                {
+                    <option value="@items.Id" selected>@items.Title</option>
+                }
+
+
+            }
+        }
+    </select><br /><br />
 
     <p>
         <textarea asp-for="Content">@Model.Content</textarea>

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    if ($(window).width() <= 600) {
+    if ($(window).width() <= 1000) {
         $('#myInfo').removeClass('in');
     }
 else
@@ -9,10 +9,10 @@ else
 });
 
 $(window).resize(function () {
-    if ($(window).width() >= 600) {
+    if ($(window).width() >= 1000) {
         $('#myInfo').addClass('in');
     }
-    if ($(window).width() <= 600) {
+    if ($(window).width() <= 1000) {
         $('#myInfo').removeClass('in');
     }
 });

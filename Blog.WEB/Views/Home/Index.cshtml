@@ -1,10 +1,10 @@
 ﻿@model List<Blog.Model.Data.Entry>
 
 @{
-    foreach (var items in Model)
+    foreach (var items in Model.OrderByDescending(o=>o.CreateDate))
     {
         <div class="panel panel-default">
-            <div class="panel-heading">@items.Title</div>
+            <div class="panel-heading">@items.Title <span class="fr badge">@items.CategoryName-<i> @items.CreateDate.ToString("dd/MM/yyyy")</i></span></div>
             <div class="panel-body" style="word-wrap:break-word;">
                @Html.Raw(items.Summary)
                 <form style="float:right;" asp-controller="Home" asp-action="Detail" asp-route-id="@items.Id">

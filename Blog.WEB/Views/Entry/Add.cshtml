@@ -8,7 +8,7 @@
     <label>Başlık : &nbsp;</label><input asp-for="Title" style="width:100%" />
     <br /><br />
     <label>Kategori : &nbsp;</label>
-    <select name="Category">
+    <select asp-for="CategoryId">
         @{ 
             foreach(var items in (List<Blog.Model.Data.Category>)ViewBag.Categories)
             {

@@ -1,0 +1,13 @@
+﻿@model Blog.Model.Data.Entry
+
+<form asp-controller="Category" asp-action="Save" method="post">
+    <div class="btn-group">
+        <button class="btn btn-success" type="submit">Kaydet</button>
+        <button class="btn btn-primary" type="reset">Temizle</button>
+    </div>
+    <br /><br />
+    <label>Başlık : &nbsp;</label><input asp-for="Title" style="width:100%" />
+    
+
+
+</form>

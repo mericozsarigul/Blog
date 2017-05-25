@@ -9,6 +9,7 @@ namespace Blog.Model.Data
         public string Title { get; set; }
         public string Summary { get; set; }
         public string Content { get; set; }
-        public Category Category { get; set; }
+        public long CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

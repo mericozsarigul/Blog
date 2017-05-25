@@ -46,6 +46,7 @@
     <ProjectReference Include="..\Blog.Model\Blog.Model.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Category\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 

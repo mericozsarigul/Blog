@@ -25,33 +25,45 @@ namespace Blog.WEB.Controllers
         {
             EntryRestfulService service = new EntryRestfulService();
             Entry data = await service.GetEntryAsync(id);
+
+            CategoryRestfulService categoryService = new CategoryRestfulService();
+            List<Category> CategoryList = await categoryService.ListCategoryAsync();
+
+            ViewBag.Categories = CategoryList;
+
             return View(data);
         }
 
-        public async Task<IActionResult> Save(Entry data, long Category)
+        public async Task<IActionResult> Save(Entry data)
         {
             EntryRestfulService serviceEntry = new EntryRestfulService();
-  
+            CategoryRestfulService serviceCategory = new CategoryRestfulService();
+
+            Category category = await serviceCategory.GetCategoryAsync(data.CategoryId);
             var clearHtmlTags = Regex.Replace(data.Content, "<.*?>", String.Empty);
+
             data.Summary = clearHtmlTags.Length > 50 ? clearHtmlTags.Substring(0, 50) : clearHtmlTags;
-           
+            data.CategoryName = category.Title;
             data.CreateDate = DateTime.Now;
               
             await serviceEntry.PostEntry(data);
  
-
             return Redirect("/Admin/Entry");
         }
 
         public async Task<IActionResult> Update(Entry data)
         {
-            data.CreateDate = DateTime.Now;
+            EntryRestfulService serviceEntry = new EntryRestfulService();
+            CategoryRestfulService serviceCategory = new CategoryRestfulService();
+
+            Category category = await serviceCategory.GetCategoryAsync(data.CategoryId);
             var clearHtmlTags = Regex.Replace(data.Content, "<.*?>", String.Empty);
 
             data.Summary = clearHtmlTags.Length > 50 ? clearHtmlTags.Substring(0, 50) : clearHtmlTags;
+            data.CategoryName = category.Title;
+            data.CreateDate = DateTime.Now;
 
-            EntryRestfulService service = new EntryRestfulService();
-            await service.UpdateEntry(data);
+            await serviceEntry.UpdateEntry(data);
 
             return Redirect("/Admin/Entry");
         }

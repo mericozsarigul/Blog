@@ -1,0 +1,46 @@
+﻿@model List<Blog.Model.Data.Category>
+
+    <form asp-controller="Category" asp-action="Add">
+        <button class="btn btn-success" type="submit">Ekle</button>
+    </form>
+
+    <table id="CategoryEditorTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Adı</th>
+                <th>Kayıt Tarihi</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.CreateDate.ToString()</td>
+                    <td>
+                        <form class="col-md-3" asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id">
+                            <button type="submit" class="btn btn-primary">Düzenle</button>
+                        </form>
+                        <form class="col-md-1" asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id">
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+            }
+
+        </tbody>
+    </table>
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $("#CategoryEditorTable").dataTable();
+
+            });
+        </script>}
