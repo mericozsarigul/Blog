@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Blog.Model.Data
 {
-    public class Category:BaseClass
+    public class Category : BaseClass
     {
+        [Required]
         public string Title { get; set; }
-        public  ICollection<Entry> Entries { get; set; }
 
+        public ICollection<Entry> Entries { get; set; }
     }
 }

@@ -1,5 +1,21 @@
 ﻿@model List<Blog.Model.Data.Category>
-
+@{
+    if (TempData["Result"] != null)
+    {
+        if (((string)TempData["Result"]).Contains("başarı"))
+        {
+            <div class="alert alert-success">
+                <strong>Tamam! </strong>@((string)TempData["Result"])
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <strong>Hata! </strong>@((string)TempData["Result"])
+            </div>
+        }
+    }
+}
     <form asp-controller="Category" asp-action="Add">
         <button class="btn btn-success" type="submit">Ekle</button>
     </form>

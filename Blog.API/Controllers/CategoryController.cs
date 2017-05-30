@@ -56,7 +56,7 @@ namespace Blog.API.Controllers
 
 
         [HttpPost]
-        public void Post(Category entry)
+        public void Post([FromBody]Category entry)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Blog.API.Controllers
 
 
         [HttpPut("{id}")]
-        public void Put(Category entry)
+        public void Put([FromBody]Category entry)
         {
             try
             {

@@ -1,12 +1,29 @@
 ﻿@model List<Blog.Model.Data.Entry>
-
-<form asp-controller="Entry" asp-action="Add">
-    <button class="btn btn-success" type="submit">Ekle</button>
-</form>
-<form asp-controller="Admin" asp-action="Category">
-    <button class="btn btn-success" type="submit">Kategorileri Düzenle</button>
-</form>
-
+@{
+    if (TempData["Result"] != null)
+    {
+        if (((string)TempData["Result"]).Contains("başarı"))
+        {
+            <div class="alert alert-success">
+                <strong>Tamam! </strong>@((string)TempData["Result"])
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <strong>Hata! </strong>@((string)TempData["Result"])
+            </div>
+        }
+    }
+}
+<div class="btn-group">
+    <form class="fl" asp-controller="Entry" asp-action="Add">
+        <button class="btn btn-success" type="submit"><i class="fa fa-plus"></i> Ekle</button>
+    </form>
+    <form class="fr" asp-controller="Admin" asp-action="Category">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i> Kategorileri Düzenle</button>
+    </form>
+</div><br /><br />
 <table id="BlogEditorTable">
     <thead>
         <tr>

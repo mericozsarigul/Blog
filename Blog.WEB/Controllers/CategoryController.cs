@@ -1,57 +1,187 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Blog.Model.Data;
 using Blog.Model.Rest;
-using Blog.Model.Data;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Blog.WEB.Controllers
 {
     public class CategoryController : Controller
     {
+        private bool adminTempStatu = false;
+
         public IActionResult Add()
         {
-            return View();
+            try
+            {
+                adminTempStatu = Convert.ToBoolean(HttpContext.Session.GetString("AdsminStatu"));
+
+                if (adminTempStatu)
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/Admin/Index");
+                }
+            }
+            catch (Exception)
+            {
+                return Redirect("/Admin/Index");
+            }
         }
 
         public async Task<IActionResult> Edit(long id)
         {
-            CategoryRestfulService service = new CategoryRestfulService();
-            Category data = await service.GetCategoryAsync(id);
+            try
+            {
+                adminTempStatu = Convert.ToBoolean(HttpContext.Session.GetString("AdminStatu"));
 
-            return View(data);
+                if (adminTempStatu)
+                {
+                    CategoryRestfulService service = new CategoryRestfulService();
+                    Category data = await service.GetCategoryAsync(id);
+
+                    return View(data);
+                }
+                else
+                {
+                    return Redirect("/Admin/Index");
+                }
+            }
+            catch (Exception)
+            {
+                return Redirect("/Admin/Index");
+            }
         }
 
         public async Task<IActionResult> Save(Category data)
         {
-            CategoryRestfulService serviceCategory = new CategoryRestfulService();
-            data.CreateDate = DateTime.Now;
+            try
+            {
+                adminTempStatu = Convert.ToBoolean(HttpContext.Session.GetString("AdminStatu"));
 
-            await serviceCategory.PostCategory(data);
+                if (adminTempStatu)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        try
+                        {
+                            CategoryRestfulService serviceCategory = new CategoryRestfulService();
+                            data.CreateDate = DateTime.Now;
 
-            return Redirect("/Admin/Category");
+                            await serviceCategory.PostCategory(data);
+                            TempData["Result"] = "Entry başarıyla kaydedildi.";
+
+                            return Redirect("/Admin/Category");
+                        }
+                        catch (Exception)
+                        {
+                            TempData["Result"] = "Entry kaydedilirken hata ile karşılaşıldı.";
+                            return Redirect("/Admin/Category");
+                        }
+                    }
+                    else
+                    {
+                        TempData["Result"] = "Gönderilen veri modeli istenilen şekilde değil.";
+                        return Redirect("/Admin/Category");
+                    }
+                }
+                else
+                {
+                    return Redirect("/Admin/Index");
+                }
+            }
+            catch (Exception)
+            {
+                return Redirect("/Admin/Index");
+            }
         }
 
         public async Task<IActionResult> Update(Category data)
         {
-            CategoryRestfulService serviceCategory = new CategoryRestfulService();
+            try
+            {
+                adminTempStatu = Convert.ToBoolean(HttpContext.Session.GetString("AdminStatu"));
 
-            data.CreateDate = DateTime.Now;
+                if (adminTempStatu)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        try
+                        {
+                            CategoryRestfulService serviceCategory = new CategoryRestfulService();
+                            data.CreateDate = DateTime.Now;
 
-            await serviceCategory.UpdateCategory(data);
+                            await serviceCategory.UpdateCategory(data);
+                            TempData["Result"] = "Kategori başarıyla güncellendi.";
 
-            return Redirect("/Admin/Category");
+                            return Redirect("/Admin/Category");
+                        }
+                        catch (Exception)
+                        {
+                            TempData["Result"] = "Kategori güncellenirken hata ile karşılaşıldı.";
+                            return Redirect("/Admin/Category");
+                        }
+                    }
+                    else
+                    {
+                        TempData["Result"] = "Gönderilen veri modeli istenilen şekilde değil.";
+                        return Redirect("/Admin/Category");
+                    }
+                }
+                else
+                {
+                    return Redirect("/Admin/Index");
+                }
+            }
+            catch (Exception)
+            {
+                return Redirect("/Admin/Index");
+            }
         }
 
         public async Task<IActionResult> Delete(long id)
         {
-            CategoryRestfulService serviceCategory = new CategoryRestfulService();
-            await serviceCategory.DeleteCategory(id);
+            try
+            {
+                adminTempStatu = Convert.ToBoolean(HttpContext.Session.GetString("AdminStatu"));
 
-            return Redirect("/Admin/Category");
+                if (adminTempStatu)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        try
+                        {
+                            CategoryRestfulService serviceCategory = new CategoryRestfulService();
+
+                            await serviceCategory.DeleteCategory(id);
+                            TempData["Result"] = "Kategori başarıyla silindi.";
+
+                            return Redirect("/Admin/Category");
+                        }
+                        catch (Exception)
+                        {
+                            TempData["Result"] = "Kategori silinirken hatayla karşılaşıldı.";
+                            return Redirect("/Admin/Category");
+                        }
+                    }
+                    else
+                    {
+                        TempData["Result"] = "Silinecek kaydın Id bilgisi gönderilmelidir.";
+                        return Redirect("/Admin/Category");
+                    }
+                }
+                else
+                {
+                    return Redirect("/Admin/Index");
+                }
+            }
+            catch (Exception)
+            {
+                return Redirect("/Admin/Index");
+            }
         }
     }
 }

@@ -15,9 +15,8 @@ namespace Blog.API
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://blog.api/")
+                .UseUrls("http://localhost:4000")
                 .UseApplicationInsights()
                 .Build();
 

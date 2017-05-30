@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Blog.API.Models.Context;
 using Microsoft.EntityFrameworkCore;
 using Blog.API.Models.Repository;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Blog.API
 {
@@ -35,7 +36,10 @@ namespace Blog.API
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
             app.UseMvc();
         }
     }
